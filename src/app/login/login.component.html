@@ -1,0 +1,23 @@
+<div class="wrapper-form">
+    <div class="form-login">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <p class="intro-form">Connexion au BackOffice Unkle</p>
+            <div>
+                <mat-form-field>
+                    <mat-label>mail</mat-label>
+                    <input type="email" formControlName="email" matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>mot de passe</mat-label>
+                    <input formControlName="password" matInput>
+                </mat-form-field>
+            </div>
+            <button type="submit" mat-raised-button>Se connecter</button>
+        </form>
+    </div>
+    <div class="register-link">
+        <a routerLink="/register">Inscription</a>
+    </div>
+</div>

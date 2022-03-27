@@ -1,0 +1,25 @@
+.wrapper-form {
+  text-align: center;
+
+  .intro-form {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .form-login {
+    width: 300px;
+    margin: auto;
+  }
+
+  ::ng-deep {
+    button {
+      background-color: #e2f3ff;
+    }
+  }
+
+  .register-link {
+    margin-top: 20px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

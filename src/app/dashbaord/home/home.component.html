@@ -1,0 +1,12 @@
+<div class="wrapper-home">
+    <p>Bonjour {{globalDataService?.userConnected?.email}}</p>
+    <ng-container *ngIf="globalDataService?.userConnected?.role === 'admin'">
+        <p>En tant qu'admnistrateur du BackOffice Unkle, vous avez la possibilité de voir le listing de tous les utilisateurs. Cliquez sur un utilisateur pour avoir son détail</p>
+        <app-users></app-users>
+    </ng-container>
+    <div class="block-cta">
+        <button (click)="viewProfile()" color="primary" mat-raised-button>Voir mon profil</button>
+        <button color="accent" mat-raised-button>Voir mes contrats</button>
+    </div>
+
+</div>

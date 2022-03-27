@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   background-color: rgb(226, 243, 255);
-  color: white;
+  color: black;
   font-weight: 600;
 
 
@@ -17,7 +17,12 @@
   }
 
   span {
-    color: black
+
+  }
+  .current-user {
+    position: absolute;
+    right: 20px;
+    margin: 0;
   }
 }
 

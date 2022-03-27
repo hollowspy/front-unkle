@@ -1,0 +1,9 @@
+<div class="wrapper-users">
+    <mat-list role="list">
+    <div *ngFor="let user of users">
+        <mat-list-item (click)="viewProfile(user)" role="listitem">Mail: {{user?.email}}</mat-list-item>
+    </div>
+    </mat-list>
+    <button (click)="addUser()" color="primary" mat-raised-button>Créer un nouvel utilisateur</button>
+
+</div>

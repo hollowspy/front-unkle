@@ -1,0 +1,14 @@
+.wrapper-home {
+  padding: 30px;
+  text-align: center;
+
+  .block-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      margin: 0 10px;
+    }
+  }
+}
