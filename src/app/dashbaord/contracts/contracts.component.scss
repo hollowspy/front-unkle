@@ -1,0 +1,68 @@
+.wrapper-contracts {
+
+  .listing-contracts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+    overflow: scroll;
+    .card-contract {
+      width: 250px;
+      margin: 20px;
+
+      &.resiliation {
+        opacity: 0.5;
+
+        mat-card-title {
+          .contract-label {
+            text-decoration: line-through;
+            display: inline-block;
+            margin-right: 10px
+          }
+
+          .info-date-resiliation {
+            display: inline-flex;
+            .date-resiliation {
+              font-size: 10px;
+            }
+          }
+
+        }
+
+      }
+
+      mat-card-subtitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+          margin: 0
+        }
+
+        mat-icon {
+          color: #9a2c2c;
+          cursor: pointer;
+        }
+      }
+      mat-card-content {
+        text-align: left;
+
+        .info-contract {
+          margin: 10px 0;
+          p {
+            margin: 0;
+          }
+        }
+
+        .option-contract {
+          margin: 10px 0;
+          .intro-option {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

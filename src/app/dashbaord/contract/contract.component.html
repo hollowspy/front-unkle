@@ -1,0 +1,56 @@
+<div class="wrapper-contract">
+    <mat-card class="card-contract">
+        <mat-card-subtitle>
+            <p>Nouveau Contrat Unkle</p>
+        </mat-card-subtitle>
+        <mat-card-title>
+            <span class="contract-label">Contrat d'assurance</span>
+        </mat-card-title>
+        <mat-card-content>
+            <div>
+                <h2>Choix du type de contrat</h2>
+                <mat-radio-group aria-label="Select an option">
+                    <ng-container *ngFor="let contract of globalDataService.contracts">
+                        <div class="list-btn-radio">
+                            <mat-radio-button value={{contract.value}} (change)="onSelectContract($event.value)">
+                                <p>Le contrat: {{contract.value}} : {{contract.description}}</p>
+                            </mat-radio-button>
+                        </div>
+                    </ng-container>
+                </mat-radio-group>
+            </div>
+            <mat-divider inset></mat-divider>
+            <div class="block-options">
+                <h2>Choix des options (facultatif)</h2>
+                <mat-form-field appearance="fill">
+                    <mat-label>Options</mat-label>
+                    <mat-select [formControl]="optionsForm" (selectionChange)="onSelectOptions($event.value)" multiple>
+                        <mat-option *ngFor="let option of globalDataService.options"
+                                    [value]="option">{{option.description}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-divider inset></mat-divider>
+            <div class="block-date">
+                <h2>Choix des date</h2>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date de début</mat-label>
+                        <input matInput [(ngModel)]="dateStart" [matDatepicker]="pickerStart">
+                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerStart></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date de fin</mat-label>
+                        <input matInput [(ngModel)]="dateEnd" [matDatepicker]="pickerEnd">
+                        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerEnd></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button [disabled]="!this.contractSelected || !this.dateStart" (click)="onValidContract()" color="primary" mat-raised-button>Créer le contrat</button>
+        </mat-card-content>
+    </mat-card>
+</div>

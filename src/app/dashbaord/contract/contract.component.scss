@@ -1,0 +1,24 @@
+.wrapper-contract {
+  margin-top: 50px;
+  .card-contract {
+    width: 900px;
+    margin: auto;
+
+    mat-card-content {
+
+      .list-btn-radio {
+        text-align: left;
+        mat-radio-button {
+          p {
+            margin: 10px 0;
+          }
+        }
+
+      }
+      .block-options,
+      .block-date{
+        margin-top: 20px;
+      }
+    }
+  }
+}

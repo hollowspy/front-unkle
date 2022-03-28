@@ -1,0 +1,44 @@
+<div class="wrapper-contracts" *ngIf="isLoaded">
+    <h2>Voici le(s) contrats souscrit(s)</h2>
+    <div class="listing-contracts" *ngIf="contractUsers.length > 0">
+        <ng-container *ngFor="let contract of contractUsers">
+            <mat-card class="card-contract" [ngClass]="{'resiliation': contract.date_resiliation}">
+                <mat-card-subtitle>
+                    <p>Type de contrat Unkle :</p>
+                    <mat-icon *ngIf="!contract.date_resiliation" (click)="cancelContract(contract)" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                </mat-card-subtitle>
+                <mat-card-title>
+                    <span class="contract-label">{{contract._contract.label}}</span>
+                    <span class="info-date-resiliation" *ngIf="contract.date_resiliation">résilié</span>
+                </mat-card-title>
+                <mat-card-content>
+    <!--                <p>{{contract._contract.description}}</p>-->
+                    <div class="info-contract">
+                        <p>Date de souscription : {{contract.date_start |  date: 'dd/MM/yyyy'}}</p>
+                        <p>Date d'expiration : {{contract.date_end |  date: 'dd/MM/yyyy'}}</p>
+                        <p *ngIf="contract.date_resiliation">Date de resiliation : {{contract.date_resiliation |  date: 'dd/MM/yyyy'}}</p>
+                        <p>status du contrat : {{contract.status}}</p>
+                    </div>
+                    <div class="option-contract">
+                        <p class="intro-option">Option(s) contractée(s) sur ce contrat</p>
+                        <ng-container *ngIf="contract._contract_options.length > 0">
+                            <ul class="list-option" *ngFor="let option of contract._contract_options">
+                                <li>{{option._option.description}}</li>
+                            </ul>
+                        </ng-container>
+                        <ng-container *ngIf="contract._contract_options.length === 0">
+                            <p>Aucune option souscrite sur ce contrat</p>
+                        </ng-container>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        </ng-container>
+    </div>
+    <div *ngIf="contractUsers.length === 0">
+        <p>Aucun contrat souscrit pour le moment
+        </p>
+    </div>
+    <p *ngIf="globalDataService?.userConnected?.role !== 'admin'">Vous souhaitez souscrire à un contrat ? Prenez contact sans attendre avec un administrateur Unkle!</p>
+
+</div>
