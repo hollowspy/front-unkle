@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "../models/user";
+import {Contract} from "../models/contract";
+import {Option} from "../models/option";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,8 @@ import {User} from "../models/user";
 export class GlobalDataService {
   
   public userConnected:User | null = null;
+  public contracts: Contract[] | null = null;
+  public options:Option[] = [];
 
   constructor() { }
   

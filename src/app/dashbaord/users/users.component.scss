@@ -1,0 +1,42 @@
+.wrapper-users {
+  .listing-users {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+    overflow: scroll;
+    .card-user {
+      width: 250px;
+      margin: 20px;
+      cursor: pointer;
+
+
+      mat-card-subtitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+          margin: 0
+        }
+
+        mat-icon {
+          color: #9a2c2c;
+          cursor: pointer;
+        }
+      }
+
+      .info-contract {
+        margin: 10px 0;
+        p {
+          margin: 0;
+        }
+      }
+
+    }
+  }
+  .block-cta {
+    margin-bottom: 20px;
+  }
+}

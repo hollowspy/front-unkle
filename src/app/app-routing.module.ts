@@ -4,6 +4,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {HomeComponent} from "./dashbaord/home/home.component";
 import { ProfileComponent } from './dashbaord/profile/profile.component'
+import {AuthGuard} from "../providers/auth.guard";
 
 
 const routes: Routes = [
@@ -13,20 +14,31 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [
+      AuthGuard
+    ]
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [
+      AuthGuard
+    ]
   },
   {
     path: 'profile/:id',
-    component: ProfileComponent
+    component: ProfileComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [
+      AuthGuard
+    ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+      {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

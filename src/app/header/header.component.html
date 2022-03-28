@@ -4,5 +4,10 @@
             src="../../assets/unkle_logo.svg"
     />
     <span>Test Unkle</span>
-    <p class="current-user">{{globalDataService?.userConnected?.email}}</p>
+    <button class="current-user" mat-button [matMenuTriggerFor]="menu">{{globalDataService?.userConnected?.email}}</button>
+    <div>
+        <mat-menu #menu="matMenu">
+            <button (click)="onLogOut()" mat-menu-item>Déconnexion</button>
+        </mat-menu>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,  } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -9,12 +9,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatOptionModule } from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule,} from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule} from "@angular/material/snack-bar";
 import { MatListModule } from "@angular/material/list";
-
+import { MatRadioModule } from "@angular/material/radio";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 
 // Components
@@ -23,10 +29,18 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './dashbaord/home/home.component';
 import { ProfileComponent } from './dashbaord/profile/profile.component'
+import { UsersComponent } from './dashbaord/users/users.component';
+import { ContractComponent } from './dashbaord/contract/contract.component';
+import { ContractsComponent } from './dashbaord/contracts/contracts.component';
+import { CustomTooltipComponent } from './custom-tooltip/custom-tooltip.component';
+import { ValueVarDirective } from './Directives/value-var.directive';
+
 
 // JWT
 import { JwtModule } from "@auth0/angular-jwt";
-import { UsersComponent } from './dashbaord/users/users.component';
+
+
+
 
 
 
@@ -44,7 +58,11 @@ export function tokenGetter() {
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
-    UsersComponent
+    UsersComponent,
+    ContractComponent,
+    ContractsComponent,
+    CustomTooltipComponent,
+    ValueVarDirective
   ],
   imports: [
     BrowserModule,
@@ -60,6 +78,14 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MatSnackBarModule,
     MatListModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatTooltipModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -69,7 +95,9 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

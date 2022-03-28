@@ -1,8 +1,25 @@
 <div class="wrapper-profile">
    <h1>Information concernant l'utilisateur</h1>
-    <mat-list role="list">
-        <mat-list-item role="listitem">Mail: {{user?.email}}</mat-list-item>
-        <mat-list-item role="listitem">Role: {{user?.role}}</mat-list-item>
-    </mat-list>
-    <button *ngIf="globalDataService?.userConnected?.role === 'admin'" (click)="deleteUser()" color="primary" mat-raised-button>Supprimer l'utilisateur</button>
+    <mat-card class="card-user">
+        <mat-card-subtitle>
+            <p>Utilisateur</p>
+        </mat-card-subtitle>
+        <mat-card-title>
+            <span class="user-email">{{user?.email}}</span>
+        </mat-card-title>
+        <mat-card-content>
+            <div class="info-user">
+                <p>Role: {{user?.role}}</p>
+            </div>
+            <button *ngIf="globalDataService?.userConnected?.role === 'admin'" (click)="deleteUser()" color="primary" mat-raised-button>Supprimer l'utilisateur</button>
+        </mat-card-content>
+    </mat-card>
+   <app-contracts *ngIf="user" [user]="user" ></app-contracts>
+   <button  *ngIf="globalDataService?.userConnected?.role === 'admin'" (click)="displayContracts = true" color="primary" mat-raised-button>Créer un contrat pour l'utilisateur</button>
+
+    <ng-container *ngIf="displayContracts">
+        <app-contract (onClose)="onUpdateContract($event)" *ngIf="user" [user]="user" ></app-contract>
+    </ng-container>
+
+
 </div>

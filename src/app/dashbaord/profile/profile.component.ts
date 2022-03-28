@@ -13,6 +13,7 @@ import {GlobalDataService} from "../../../providers/global-data.service";
 export class ProfileComponent implements OnInit {
   
   public user:User | null = null;
+  public displayContracts:boolean = false;
 
   constructor(private route: ActivatedRoute,
               private requestService: RequestService,
@@ -44,5 +45,16 @@ export class ProfileComponent implements OnInit {
       
     }
   }
+  
+  public onUpdateContract(e:boolean) {
+    if (e) {
+      this.displayContracts = false;
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    }
+  }
+  
 
 }
