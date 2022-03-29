@@ -9,17 +9,18 @@
   .form-login {
     width: 300px;
     margin: auto;
-  }
 
-  ::ng-deep {
-    button {
-      background-color: #e2f3ff;
+    ::ng-deep {
+      button {
+        background-color: #e2f3ff;
+      }
+    }
+
+    .test {
+      width: 200px;
+      margin: auto;
     }
   }
 
-  .register-link {
-    margin-top: 20px;
-    text-decoration: underline;
-    cursor: pointer;
-  }
+
 }

@@ -3,8 +3,23 @@
         <form [formGroup]="loginForm" (ngSubmit)="login()">
             <p class="intro-form">Connexion au BackOffice Unkle</p>
             <div>
-                <mat-form-field>
-                    <mat-label>mail</mat-label>
+                <mat-form-field id="email-field"
+                                #hoverMail="valueVar"
+                                [appValueVar]="false"
+                                (mouseover)="hoverMail.appValueVar = true"
+                                (mouseout)="hoverMail.appValueVar = false">
+                    <mat-label>
+                        mail</mat-label>
+                    <app-custom-tooltip
+                            [idTooltip]="'tooltip-email-field'"
+                            [idParent]="'email-field'"
+                            [width]="100"
+                            [minWidth]="50"
+                            [maxWidth]="400"
+                            [content]="'Email doit être au format xxxx@xxx.xx'"
+                            [position]="'right'"
+                            [display]="hoverMail.appValueVar">
+                    </app-custom-tooltip>
                     <input type="email" formControlName="email" matInput>
                 </mat-form-field>
             </div>
@@ -14,33 +29,43 @@
                     <input formControlName="password" matInput>
                 </mat-form-field>
             </div>
-<!--            <button #hover="valueVar" [appValueVar]="true" (mouseover)="hover.appValueVar = true;" (mouseout)="hover.appValueVar = false;" type="submit" mat-raised-button>Se connecter</button>-->
-<!--            <div>-->
-                <button id="button-login"  #hover="valueVar" [appValueVar]="true"  type="submit" mat-raised-button>Se connecter</button>
+            <button id="button-login"
+                    #hover="valueVar"
+                    [appValueVar]="false"
+                    (mouseover)="hover.appValueVar = true"
+                    (mouseout)="hover.appValueVar = false"
+                    type="submit" mat-raised-button>Se connecter
+            </button>
                 <app-custom-tooltip
-                        *ngIf="hover.appValueVar"
                         [idTooltip]="'tooltip-login'"
                         [idParent]="'button-login'"
                         [width]="100"
                         [minWidth]="50"
                         [maxWidth]="400"
-                        [content]="'test'"
-                        [position]="'right'"
-                        ></app-custom-tooltip>
+                        [content]="'Connexion au Back Office Unkle'"
+                        [position]="'bottom'"
+                        [display]="hover.appValueVar">
+                </app-custom-tooltip>
+
 <!--                <div style="margin-top: 100px">-->
-<!--                    <p  #test="valueVar" [appValueVar]="true"  id="id-test">Ceci est un nouveau test</p>-->
-<!--                    <app-custom-tooltip [idTooltip]="'tooltip-test'" [idParent]="'id-test'" [width]="100" [minWidth]="50" [maxWidth]="150" *ngIf="test.appValueVar"></app-custom-tooltip>-->
+<!--                    <p class="test" #test="valueVar"-->
+<!--                       [appValueVar]="true" -->
+<!--                       (mouseover)="test.appValueVar = true;"-->
+<!--                       (mouseout)="test.appValueVar = false"-->
+<!--                       id="id-test">Ceci est un nouveau test-->
+<!--                    </p>-->
+<!--                    <app-custom-tooltip-->
+<!--                            [idTooltip]="'tooltip-test'"-->
+<!--                            [idParent]="'id-test'"-->
+<!--                            [width]="100"-->
+<!--                            [minWidth]="50"-->
+<!--                            [maxWidth]="150"-->
+<!--                            [content]="'Ceci est mon nouveau contenu'"-->
+<!--                            [position]="'right'"-->
+<!--                            [display]="test.appValueVar"-->
+<!--                            *ngIf="test.appValueVar"></app-custom-tooltip>-->
 
 <!--                </div>-->
-<!--            </div>-->
-
-
-
-
-<!--            <ng-container *ngIf="hover.appValueVar">-->
-<!--                <p>Ici Test</p>-->
-<!--            </ng-container>-->
-<!--            <button matTooltip="Info about the action" type="submit" mat-raised-button>Se connecter</button>-->
         </form>
     </div>
 </div>

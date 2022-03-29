@@ -1,11 +1,29 @@
 <div class="wrapper-contracts" *ngIf="isLoaded">
     <h2>Voici le(s) contrats souscrit(s)</h2>
     <div class="listing-contracts" *ngIf="contractUsers.length > 0">
-        <ng-container *ngFor="let contract of contractUsers">
+        <ng-container *ngFor="let contract of contractUsers; let index=index">
             <mat-card class="card-contract" [ngClass]="{'resiliation': contract.date_resiliation}">
                 <mat-card-subtitle>
                     <p>Type de contrat Unkle :</p>
-                    <mat-icon *ngIf="!contract.date_resiliation" (click)="cancelContract(contract)" aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                    <ng-container *ngIf="!contract.date_resiliation">
+                        <mat-icon id="icon-delete-contract-{{index}}"
+                                  #hoverDelete="valueVar"
+                                  (mouseover)="hoverDelete.appValueVar = true"
+                                  (mouseout)="hoverDelete.appValueVar = false"
+                                  [appValueVar]="false"
+                                  (click)="cancelContract(contract)" aria-hidden="false" aria-label="Example home icon">delete
+                        </mat-icon>
+                        <app-custom-tooltip
+                                idTooltip="'tooltip-login-{{index}}"
+                                idParent="icon-delete-contract-{{index}}"
+                                [width]="100"
+                                [minWidth]="50"
+                                [maxWidth]="400"
+                                [content]="'Supprimer le contrat définitivement'"
+                                [position]="'top'"
+                                [display]="hoverDelete.appValueVar">
+                        </app-custom-tooltip>
+                    </ng-container>
                 </mat-card-subtitle>
                 <mat-card-title>
                     <span class="contract-label">{{contract._contract.label}}</span>

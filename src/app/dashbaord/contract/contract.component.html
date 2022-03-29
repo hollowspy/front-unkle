@@ -10,11 +10,26 @@
             <div>
                 <h2>Choix du type de contrat</h2>
                 <mat-radio-group aria-label="Select an option">
-                    <ng-container *ngFor="let contract of globalDataService.contracts">
+                    <ng-container *ngFor="let contract of globalDataService.contracts; let i = index">
                         <div class="list-btn-radio">
-                            <mat-radio-button value={{contract.value}} (change)="onSelectContract($event.value)">
-                                <p>Le contrat: {{contract.value}} : {{contract.description}}</p>
+                            <mat-radio-button  value={{contract.value}} (change)="onSelectContract($event.value)"
+                                               id="button-radio-contract-{{i}}"
+                                               #hoverTypeContract="valueVar"
+                                               [appValueVar]="false"
+                                               (mouseover)="hoverTypeContract.appValueVar = true"
+                                               (mouseout)="hoverTypeContract.appValueVar = false">
+                                <p>Le contrat  {{contract.value}} : Un contrat {{contract.label}}</p>
                             </mat-radio-button>
+                            <app-custom-tooltip
+                                    idTooltip="tooltip-type-contract-{{i}}"
+                                    idParent="button-radio-contract-{{i}}"
+                                    [width]="400"
+                                    [minWidth]="50"
+                                    [maxWidth]="400"
+                                    content="{{contract.descriptionTooltip}}"
+                                    [position]="'right'"
+                                    [display]="hoverTypeContract.appValueVar">
+                            </app-custom-tooltip>
                         </div>
                     </ng-container>
                 </mat-radio-group>
@@ -24,7 +39,9 @@
                 <h2>Choix des options (facultatif)</h2>
                 <mat-form-field appearance="fill">
                     <mat-label>Options</mat-label>
-                    <mat-select [formControl]="optionsForm" (selectionChange)="onSelectOptions($event.value)" multiple>
+                    <mat-select [formControl]="optionsForm"
+                                (selectionChange)="onSelectOptions($event.value)"
+                                multiple>
                         <mat-option *ngFor="let option of globalDataService.options"
                                     [value]="option">{{option.description}}</mat-option>
                     </mat-select>
@@ -50,7 +67,30 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button [disabled]="!this.contractSelected || !this.dateStart" (click)="onValidContract()" color="primary" mat-raised-button>Créer le contrat</button>
+            <button [disabled]="!this.contractSelected || !this.dateStart"
+                    id="button-create-contract"
+                    #hoverContract="valueVar"
+                    [appValueVar]="false"
+                    (mouseover)="hoverContract.appValueVar = true"
+                    (mouseout)="hoverContract.appValueVar = false"
+                    (click)="onValidContract()" color="primary" mat-raised-button>
+                Créer le contrat</button>
+            <app-custom-tooltip
+                    [idTooltip]="'tooltip-create-contract'"
+                    [idParent]="'button-create-contract'"
+                    [width]="100"
+                    [minWidth]="50"
+                    [maxWidth]="400"
+                    [content]="'Confirmer la création du contrat'"
+                    [position]="'left'"
+                    [display]="hoverContract.appValueVar">
+            </app-custom-tooltip>
         </mat-card-content>
     </mat-card>
 </div>
+
+
+<ng-template #invalidDate>
+    <h1>Creation du contrat impossible</h1>
+    <p>La date de fin du contrat est inférieure à la date de début ! Merci de resaisir une date cohérente</p>
+</ng-template>

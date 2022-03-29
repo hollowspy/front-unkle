@@ -11,7 +11,27 @@
             <div class="info-user">
                 <p>Role: {{user?.role}}</p>
             </div>
-            <button *ngIf="globalDataService?.userConnected?.role === 'admin'" (click)="deleteUser()" color="primary" mat-raised-button>Supprimer l'utilisateur</button>
+            <ng-container *ngIf="globalDataService?.userConnected?.role === 'admin'">
+                <button  (click)="deleteUser()"
+                        id="btn-delete-user"
+                        #hoverDelete="valueVar"
+                        [appValueVar]="false"
+                        (mouseover)="hoverDelete.appValueVar = true"
+                        (mouseout)="hoverDelete.appValueVar = false"
+                        color="primary" mat-raised-button>Supprimer l'utilisateur
+                </button>
+                <app-custom-tooltip
+                        [idTooltip]="'tooltip-delete-user'"
+                        [idParent]="'btn-delete-user'"
+                        [width]="200"
+                        [minWidth]="50"
+                        [maxWidth]="400"
+                        [content]="'Supprimer définitivement cet utilisateur'"
+                        [position]="'bottom'"
+                        [display]="hoverDelete.appValueVar">
+                </app-custom-tooltip>
+
+            </ng-container>
         </mat-card-content>
     </mat-card>
    <app-contracts *ngIf="user" [user]="user" ></app-contracts>

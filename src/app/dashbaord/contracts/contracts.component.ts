@@ -25,6 +25,7 @@ export class ContractsComponent implements OnInit {
   @Input('user') public user: User | undefined;
   public contractUsers:fullContractUsers[] = [];
   public isLoaded:boolean = false;
+  
 
   constructor(private requestService:RequestService,
               public globalDataService:GlobalDataService) { }

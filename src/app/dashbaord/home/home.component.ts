@@ -14,6 +14,20 @@ import {Option} from "../../../models/option";
 export class HomeComponent implements OnInit {
   
   public isLoaded:boolean =false;
+  private tooltipsContracts:any = [
+    {
+      value: 'light',
+      description: `<div>Votre abonnement <bold>1er prix</bold></div><div>Une assurance de base pour les petits budget</div><div>Idéal pour les jeunes locataire ou petits propriétaire</div>`
+    },
+    {
+      value: 'premium',
+      description: `<div>Assurance standart</div><ul><li>Locataire : nous nous portons garants pour vous. </li><li>Propriétaire : Soyez rassurez pour les loyers impayés</li></ul>`
+    },
+    {
+      value: 'full',
+      description: `<div>Le contrat pour vous les gros propriétaire.</div><div>Vous serez protégés contre tous les dommages. Ce contrat est fait pour vous</div> `
+    }
+  ]
 
   constructor(private requestService: RequestService,
               public globalDataService:GlobalDataService,
@@ -23,7 +37,13 @@ export class HomeComponent implements OnInit {
     const fetchContracts = this.requestService.listContracts();
     const fetchOptions = this.requestService.listOptions();
     forkJoin([fetchContracts, fetchOptions]).subscribe(([resContract, resOptions]:any) => {
-      this.globalDataService.contracts = resContract.contracts;
+      this.globalDataService.contracts = resContract.contracts.map((c:any) => {
+        const tooltip = this.tooltipsContracts.find((t:any) => t.value === c.value);
+        return {
+          ...c,
+          descriptionTooltip: tooltip.description
+        }
+      })
       this.globalDataService.options = resOptions.options
       this.isLoaded = true;
     });

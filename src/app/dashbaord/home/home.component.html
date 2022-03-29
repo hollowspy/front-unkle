@@ -8,8 +8,21 @@
         <p>Vous voici sur votre espace client. Vous pouvez ici voir vos contrats et le(s) résilier si vous le souhaitez. Acceder à vote profil en cliquant ci dessous</p>
     </ng-container>
     <div class="block-cta">
-        <button (click)="viewProfile()" color="primary" mat-raised-button>Voir mon profil</button>
-<!--        <button color="accent" mat-raised-button>Voir mes contrats</button>-->
+        <button id="button-profile" #hoverBtnProfile="valueVar"
+                [appValueVar]="false"
+                (mouseover)="hoverBtnProfile.appValueVar = true;"
+                (mouseout)="hoverBtnProfile.appValueVar = false" (click)="viewProfile()" color="primary" mat-raised-button>Voir mon profil
+        </button>
+        <app-custom-tooltip
+                [idTooltip]="'tooltip-btn-profile'"
+                [idParent]="'button-profile'"
+                [width]="200"
+                [minWidth]="50"
+                [maxWidth]="400"
+                [content]="'Voir en détail le profil utilisateur'"
+                [position]="'left'"
+                [display]="hoverBtnProfile.appValueVar">
+        </app-custom-tooltip>
     </div>
 
 </div>
