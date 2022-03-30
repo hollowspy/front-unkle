@@ -6,7 +6,7 @@
     justify-content: flex-start;
     align-content: stretch;
     align-items: stretch;
-    overflow: scroll;
+
     .card-user {
       width: 250px;
       margin: 20px;
@@ -17,6 +17,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         p {
           margin: 0
         }
@@ -29,6 +30,7 @@
 
       .info-contract {
         margin: 10px 0;
+
         p {
           margin: 0;
         }
@@ -36,6 +38,7 @@
 
     }
   }
+
   .block-cta {
     margin-bottom: 20px;
   }

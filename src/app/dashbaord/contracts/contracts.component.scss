@@ -7,7 +7,7 @@
     justify-content: flex-start;
     align-content: stretch;
     align-items: stretch;
-    overflow: scroll;
+
     .card-contract {
       width: 250px;
       margin: 20px;
@@ -24,6 +24,7 @@
 
           .info-date-resiliation {
             display: inline-flex;
+
             .date-resiliation {
               font-size: 10px;
             }
@@ -37,6 +38,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         p {
           margin: 0
         }
@@ -46,11 +48,13 @@
           cursor: pointer;
         }
       }
+
       mat-card-content {
         text-align: left;
 
         .info-contract {
           margin: 10px 0;
+
           p {
             margin: 0;
           }
@@ -58,6 +62,7 @@
 
         .option-contract {
           margin: 10px 0;
+
           .intro-option {
             font-weight: 600;
           }
