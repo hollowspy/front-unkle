@@ -38,7 +38,7 @@
    <button  *ngIf="globalDataService?.userConnected?.role === 'admin'" (click)="displayContracts = true" color="primary" mat-raised-button>Créer un contrat pour l'utilisateur</button>
 
     <ng-container *ngIf="displayContracts">
-        <app-contract (onClose)="onUpdateContract($event)" *ngIf="user" [user]="user" ></app-contract>
+        <app-contract (closeContract)="onUpdateContract($event)" *ngIf="user" [user]="user" ></app-contract>
     </ng-container>
 
 

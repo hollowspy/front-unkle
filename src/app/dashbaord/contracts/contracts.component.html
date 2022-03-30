@@ -28,7 +28,7 @@
                     </ng-container>
                 </mat-card-subtitle>
                 <ng-container  *ngIf="displayDelete.appValueVar">
-                    <app-confirm-delete-contract (onClose)="onCloseConfirmDelete($event, displayDelete)" [contract]="contract"></app-confirm-delete-contract>
+                    <app-confirm-delete-contract (closeDelete)="onCloseConfirmDelete($event, displayDelete)" [contract]="contract"></app-confirm-delete-contract>
                 </ng-container>
                 <mat-card-title>
                     <span class="contract-label">{{contract._contract.label}}</span>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Login, RequestService} from "../../providers/request.service";
 import {Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {GlobalDataService} from "../../providers/global-data.service";
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
     
     public loginForm: FormGroup
     
@@ -23,21 +23,15 @@ export class LoginComponent implements OnInit {
         })
     }
     
-    ngOnInit(): void {
-    }
-    
-    
+
     public login():void {
         const val = this.loginForm.value;
-        console.log('val', val);
         this.requestService.login(val).subscribe((data: Login) => {
             if (data.access_token) {
                 localStorage.setItem('access_token', data.access_token)
                 this.globalDataService.onSetUser(data.user);
                 this.router.navigate(['home'])
             }
-            console.log('data', data);
-            
         })
     }
     

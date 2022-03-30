@@ -4,7 +4,6 @@ import {RequestService, Success} from '../../../providers/request.service'
 import {User} from "../../../models/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GlobalDataService} from "../../../providers/global-data.service";
-import {Observer} from "rxjs";
 
 @Component({
   selector: 'app-profile',

@@ -6,8 +6,7 @@ import {Contract} from "../../../models/contract";
 import {ContractOption} from "../../../models/contract_options";
 import {Option} from "../../../models/option";
 import {GlobalDataService} from "../../../providers/global-data.service";
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Observable} from "rxjs";
+import {MatDialog} from '@angular/material/dialog';
 
 export interface fullContractOption extends ContractOption {
   _option: Option
@@ -24,7 +23,7 @@ export interface fullContractUsers extends ContractUser {
   styleUrls: ['./contracts.component.scss']
 })
 export class ContractsComponent implements OnInit {
-  @Input('user') public user: User | undefined;
+  @Input() public user: User | undefined;
   @ViewChild('dateResiliation') public dateResiliation: TemplateRef<any> | undefined;
   public contractUsers:fullContractUsers[] = [];
   public isLoaded:boolean = false;
@@ -35,7 +34,6 @@ export class ContractsComponent implements OnInit {
               public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    console.log('users', this.user);
     this.fetchContractUser();
     
   }
@@ -45,7 +43,6 @@ export class ContractsComponent implements OnInit {
       this.requestService.listContractUsers(this.user.id, true).subscribe((contracts:any) => {
         this.contractUsers = contracts.contract_users;
         this.isLoaded = true
-        console.log('contractUsers', this.contractUsers);
       })
     }
   }

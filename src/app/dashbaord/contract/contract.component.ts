@@ -1,13 +1,10 @@
 import {
     Component,
-    ElementRef,
     EventEmitter,
     Input,
-    OnInit,
     Output,
-    QueryList, TemplateRef,
+    TemplateRef,
     ViewChild,
-    ViewChildren
 } from '@angular/core';
 import {User} from "../../../models/user";
 import {RequestService} from "../../../providers/request.service";
@@ -18,7 +15,7 @@ import {FormControl} from "@angular/forms";
 import * as moment from 'moment';
 import {ContractUser} from "../../../models/contract_user";
 import {GlobalDataService} from "../../../providers/global-data.service";
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {ContractOption} from "../../../models/contract_options";
 
 @Component({
@@ -26,10 +23,10 @@ import {ContractOption} from "../../../models/contract_options";
     templateUrl: './contract.component.html',
     styleUrls: ['./contract.component.scss']
 })
-export class ContractComponent implements OnInit {
+export class ContractComponent {
     
-    @Input('user') public user: User | undefined;
-    @Output('onClose') public onClose:EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() public user: User | undefined;
+    @Output() public closeContract:EventEmitter<boolean> = new EventEmitter<boolean>();
     @ViewChild('invalidDate') public invalidDate: TemplateRef<any> | undefined;
     public isLoaded:boolean =false;
     public contracts: Contract[] | null = null;
@@ -45,10 +42,7 @@ export class ContractComponent implements OnInit {
     }
     
     
-    ngOnInit():void {
-    }
-    
-    
+
     public onSelectContract(value:string):void {
         if (this.globalDataService.contracts) {
             const contractSelected = this.globalDataService.contracts.find(c => c.value === value)
@@ -104,11 +98,11 @@ export class ContractComponent implements OnInit {
                         })
                         forkJoin(subscribes).subscribe(
                             (options) => {
-                                this.onClose.emit(true)
+                                this.closeContract.emit(true)
                             }
                         );
                     } else {
-                        this.onClose.emit(true)
+                        this.closeContract.emit(true)
                     }
                 }
             })

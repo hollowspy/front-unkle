@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Inject, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -6,21 +6,19 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './custom-tooltip.component.html',
   styleUrls: ['./custom-tooltip.component.scss']
 })
-export class CustomTooltipComponent implements OnInit {
+export class CustomTooltipComponent implements OnChanges{
   
-  @Input('idParent') public idParent:string = '';
-  @Input('idTooltip') public idTooltip:string = '';
-  @Input('width') public width:number = 0;
-  @Input('minWidth') public minWidth:number = 0;
-  @Input('maxWidth') public maxWidth:number = 0;
-  @Input('content') public content:string = '';
-  @Input('position') public position:string = '';
-  @Input('display') public display:boolean = false
+  @Input() public idParent:string = '';
+  @Input() public idTooltip:string = '';
+  @Input() public width:number = 0;
+  @Input() public minWidth:number = 0;
+  @Input() public maxWidth:number = 0;
+  @Input() public content:string = '';
+  @Input() public position:string = '';
+  @Input() public display:boolean = false
 
   constructor(@Inject(DOCUMENT) public document: Document) { }
 
-  ngOnInit(): void {
-  }
   
   ngOnChanges(simple:SimpleChanges) {
     if (simple && simple['display'] && !simple['display'].currentValue) {

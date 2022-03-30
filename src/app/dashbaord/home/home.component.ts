@@ -4,7 +4,6 @@ import {GlobalDataService} from "../../../providers/global-data.service";
 import {Router} from "@angular/router";
 import {forkJoin, Observable} from "rxjs";
 import {Contract} from "../../../models/contract";
-import {User} from "../../../models/user";
 import {ContractOption} from "../../../models/contract_options";
 
 export interface TooltipContract {
@@ -59,7 +58,6 @@ export class HomeComponent implements OnInit {
   
   
   public viewProfile():void {
-    console.log('globalData', this.globalDataService.userConnected);
     if (this.globalDataService.userConnected) {
       this.router.navigate(['/profile', `${this.globalDataService.userConnected.id}`])
     }

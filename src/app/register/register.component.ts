@@ -14,7 +14,7 @@ export interface Roles {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   
   public registerForm:FormGroup
   
@@ -34,9 +34,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-  
+
   public onSelect(role:string):void{
     this.roleSelected = role;
   }
