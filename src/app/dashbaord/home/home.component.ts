@@ -2,19 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import {RequestService} from "../../../providers/request.service";
 import {GlobalDataService} from "../../../providers/global-data.service";
 import {Router} from "@angular/router";
-import {forkJoin} from "rxjs";
+import {forkJoin, Observable} from "rxjs";
 import {Contract} from "../../../models/contract";
-import {Option} from "../../../models/option";
+import {User} from "../../../models/user";
+import {ContractOption} from "../../../models/contract_options";
+
+export interface TooltipContract {
+  value: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   
   public isLoaded:boolean =false;
-  private tooltipsContracts:any = [
+  private tooltipsContracts:TooltipContract[] = [
     {
       value: 'light',
       description: `<div>Votre abonnement <bold>1er prix</bold></div><div>Une assurance de base pour les petits budget</div><div>Idéal pour les jeunes locataire ou petits propriétaire</div>`
@@ -34,14 +41,14 @@ export class HomeComponent implements OnInit {
               private router:Router) { }
 
   ngOnInit(): void {
-    const fetchContracts = this.requestService.listContracts();
-    const fetchOptions = this.requestService.listOptions();
+    const fetchContracts:Observable<Contract[]> = this.requestService.listContracts();
+    const fetchOptions:Observable<ContractOption[]> = this.requestService.listOptions();
     forkJoin([fetchContracts, fetchOptions]).subscribe(([resContract, resOptions]:any) => {
-      this.globalDataService.contracts = resContract.contracts.map((c:any) => {
-        const tooltip = this.tooltipsContracts.find((t:any) => t.value === c.value);
+      this.globalDataService.contracts = resContract.contracts.map((c:Contract) => {
+        const tooltip:TooltipContract | undefined = this.tooltipsContracts.find((t:TooltipContract) => t.value === c.value);
         return {
           ...c,
-          descriptionTooltip: tooltip.description
+          descriptionTooltip: (tooltip) ? tooltip.description : null
         }
       })
       this.globalDataService.options = resOptions.options
@@ -49,14 +56,9 @@ export class HomeComponent implements OnInit {
     });
   }
   
-  public test() {
-    this.requestService.listUsers().subscribe((data) => {
-      console.log('data', data);
-    })
-  }
   
   
-  public viewProfile() {
+  public viewProfile():void {
     console.log('globalData', this.globalDataService.userConnected);
     if (this.globalDataService.userConnected) {
       this.router.navigate(['/profile', `${this.globalDataService.userConnected.id}`])

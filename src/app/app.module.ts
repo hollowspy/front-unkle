@@ -38,6 +38,7 @@ import { ValueVarDirective } from './Directives/value-var.directive';
 
 // JWT
 import { JwtModule } from "@auth0/angular-jwt";
+import { ConfirmDeleteContractComponent } from './dashbaord/confirm-delete-contract/confirm-delete-contract.component';
 
 
 
@@ -62,7 +63,8 @@ export function tokenGetter() {
     ContractComponent,
     ContractsComponent,
     CustomTooltipComponent,
-    ValueVarDirective
+    ValueVarDirective,
+    ConfirmDeleteContractComponent
   ],
   imports: [
     BrowserModule,

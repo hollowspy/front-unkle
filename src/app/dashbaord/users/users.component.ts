@@ -3,6 +3,7 @@ import {RequestService} from "../../../providers/request.service";
 import {User} from "../../../models/user";
 import {Router} from "@angular/router";
 
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -22,11 +23,11 @@ export class UsersComponent implements OnInit {
     })
   }
   
-  public viewProfile(user:any) {
+  public viewProfile(user:User):void {
     this.router.navigate(['profile', user.id])
   }
   
-  public addUser() {
+  public addUser():void {
     this.router.navigate(['register'])
   }
 

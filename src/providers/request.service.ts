@@ -2,6 +2,18 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from '../models/user'
 import {ContractUser} from "../models/contract_user";
+import {Contract} from "../models/contract";
+import {Observable} from "rxjs";
+import {ContractOption} from "../models/contract_options";
+
+export interface Success {
+  success:boolean
+};
+
+export interface Login {
+  access_token:string;
+  user: User
+}
 
 
 @Injectable({
@@ -18,55 +30,55 @@ export class RequestService {
   constructor(private httpClient: HttpClient) { }
   
   
-  public register(user:User) {
+  public register(user:User):Observable<Success> {
     const url = `${this.apiUrl}/users`;
-    return this.httpClient.post(url, user);
+    return this.httpClient.post<Success>(url, user);
   }
   
   
-  public login(user:User) {
+  public login(user:User):Observable<Login> {
     const url = `${this.apiUrl}/login`;
-    return this.httpClient.post(url, user);
+    return this.httpClient.post<Login>(url, user);
   }
   
   
   // About users
-  public listUsers() {
+  public listUsers():Observable<User[]> {
     const url = `${this.apiUrl}/users`;
-    return this.httpClient.get(url);
+    return this.httpClient.get<User[]>(url);
   }
   
-  public getUser(id:any) {
+  public getUser(id:string):Observable<User> {
     const url = `${this.apiUrl}/users/${id}`;
-    return this.httpClient.get(url);
+    return this.httpClient.get<User>(url);
   }
   
-  public deleteUser(id:any) {
+  public deleteUser(id:number) :Observable<Success> {
     const url = `${this.apiUrl}/users/${id}`;
-    return this.httpClient.delete(url);
+    return this.httpClient.delete<Success>(url);
   }
   
   // About contracts
-  public listContracts() {
+  public listContracts():Observable<Contract[]> {
     const url = `${this.apiUrl}/contracts`;
-    return this.httpClient.get(url);
+    return this.httpClient.get<Contract[]>(url);
   }
   
   
   // About options
-  public listOptions() {
+  public listOptions():Observable<ContractOption[]> {
     const url = `${this.apiUrl}/options`;
-    return this.httpClient.get(url);
+    return this.httpClient.get<ContractOption[]>(url);
   }
   
   
   // About Contract Users
-  public createContractUser(contractUser:any) {
+  public createContractUser(contractUser:ContractUser):Observable<ContractUser> {
     const url = `${this.apiUrl}/contract_users`;
-    return this.httpClient.post(url, contractUser);
+    return this.httpClient.post<ContractUser>(url, contractUser);
   }
   
-  public listContractUsers(idUser?:number | null, full:boolean = false) {
+  public listContractUsers(idUser?:number | null, full:boolean = false):Observable<ContractUser[]> {
     const url = `${this.apiUrl}/contract_users`;
     let params = new HttpParams();
     if (idUser) {
@@ -75,18 +87,18 @@ export class RequestService {
     if (full) {
       params = params.append('full', 'true')
     }
-    return this.httpClient.get(url, { params: params });
+    return this.httpClient.get<ContractUser[]>(url, { params: params });
   }
   
-  public updateContractUser(contratId:number) {
-    const url = `${this.apiUrl}/contract_users/${contratId}`;
-    return this.httpClient.put(url, null);
+  public updateContractUser(contract:ContractUser):Observable<ContractUser> {
+    const url = `${this.apiUrl}/contract_users/${contract.id}`;
+    return this.httpClient.put<ContractUser>(url, contract);
   }
   
   // About Contract Options
-  public createContractOption(contractOption:any) {
+  public createContractOption(contractOption:ContractOption):Observable<ContractOption> {
     const url = `${this.apiUrl}/contract_options`;
-    return this.httpClient.post(url, contractOption);
+    return this.httpClient.post<ContractOption>(url, contractOption);
   }
   
   

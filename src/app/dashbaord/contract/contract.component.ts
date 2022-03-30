@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import {ContractUser} from "../../../models/contract_user";
 import {GlobalDataService} from "../../../providers/global-data.service";
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {ContractOption} from "../../../models/contract_options";
 
 @Component({
     selector: 'app-contract',
@@ -32,12 +33,11 @@ export class ContractComponent implements OnInit {
     @ViewChild('invalidDate') public invalidDate: TemplateRef<any> | undefined;
     public isLoaded:boolean =false;
     public contracts: Contract[] | null = null;
-    // public options:Option[] = [];
     public contractSelected:Contract | null = null;
     public optionsSelected:Option[]  = [];
     public optionsForm = new FormControl();
-    public dateStart:any;
-    public dateEnd:any;
+    public dateStart:Date | null = null;
+    public dateEnd:Date | null = null;
     
     constructor(private requestService: RequestService,
                 public dialog: MatDialog,
@@ -46,33 +46,34 @@ export class ContractComponent implements OnInit {
     
     
     ngOnInit():void {
-        // console.log('global contract', this.globalDataService.contracts);
-        // console.log('global options', this.globalDataService.options)
-        // console.log('template', this.template);
-        
     }
     
     
-    public onSelectContract(e:any) {
+    public onSelectContract(value:string):void {
         if (this.globalDataService.contracts) {
-            const contractSelected = this.globalDataService.contracts.find(c => c.value === e)
+            const contractSelected = this.globalDataService.contracts.find(c => c.value === value)
             if (contractSelected) {
                 this.contractSelected = contractSelected
             }
         }
     }
     
-    public onSelectOptions(e:any) {
+    public onSelectOptions(e:Option[]):void {
         this.optionsSelected = e;
     }
     
+    
+    
     public onValidContract():any {
-        if (this.contractSelected && this.user && this.optionsSelected) {
+        if (this.contractSelected
+            && this.user
+            && this.optionsSelected
+            && this.dateStart
+            && this.dateEnd) {
             
             const startDate = moment(new Date(this.dateStart));
             const endDate = moment(new Date(this.dateEnd));
             if (moment(endDate).isBefore(startDate)) {
-                console.log('date find avant date de début');
                 if (this.invalidDate) {
                     return this.dialog.open(this.invalidDate, {
                         width: '400px'
@@ -83,29 +84,33 @@ export class ContractComponent implements OnInit {
             
             
             const status = this.detectStatus();
-            const contractUser:any = {
+            const contractUser:ContractUser = {
                 id_contract: this.contractSelected.id,
                 id_user: this.user.id,
                 status,
                 date_start: this.dateStart,
                 date_end: this.dateEnd
             };
-            console.log('contractUser', contractUser);
-            return this.requestService.createContractUser(contractUser).subscribe((contract:any) => {
-                console.log('data', contract);
-                console.log('this optionsSelected', this.optionsSelected);
-                const subscribes = this.optionsSelected.map((o) => {
-                    const contractOption = {
-                        id_contract: contract.id,
-                        id_option: o.id
-                    };
-                    return this.requestService.createContractOption(contractOption);
-                })
-                forkJoin(subscribes).subscribe(
-                    (options:any) => {
+            
+            this.requestService.createContractUser(contractUser).subscribe((contract:ContractUser) => {
+                if (contract) {
+                    if (this.optionsSelected.length > 0) {
+                        const subscribes = this.optionsSelected.map((o) => {
+                            const contractOption:ContractOption = {
+                                id_contract: contract.id,
+                                id_option: o.id
+                            };
+                            return this.requestService.createContractOption(contractOption);
+                        })
+                        forkJoin(subscribes).subscribe(
+                            (options) => {
+                                this.onClose.emit(true)
+                            }
+                        );
+                    } else {
                         this.onClose.emit(true)
                     }
-                );
+                }
             })
         }
         

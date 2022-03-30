@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {RequestService} from "../../providers/request.service";
+import {Login, RequestService} from "../../providers/request.service";
 import {Router} from "@angular/router";
 import {GlobalDataService} from "../../providers/global-data.service";
 
@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
     }
     
     
-    public login() {
+    public login():void {
         const val = this.loginForm.value;
         console.log('val', val);
-        this.requestService.login(val).subscribe((data: any) => {
+        this.requestService.login(val).subscribe((data: Login) => {
             if (data.access_token) {
                 localStorage.setItem('access_token', data.access_token)
                 this.globalDataService.onSetUser(data.user);

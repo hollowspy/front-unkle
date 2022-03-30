@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {RequestService} from "../../providers/request.service";
+import {RequestService, Success} from "../../providers/request.service";
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -22,8 +22,7 @@ export class RegisterComponent implements OnInit {
     {value: 'admin', viewValue: 'Administrateur'},
     {value: 'customer', viewValue: 'Client'},
   ];
-  // public roleSelected:string | null = null;
-  public roleSelected:any;
+  public roleSelected:string | null = null
   
   constructor(private formBuilder: FormBuilder,
               private requestService: RequestService,
@@ -38,32 +37,30 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  public onSelect(role:string) {
+  public onSelect(role:string):void{
     this.roleSelected = role;
   }
   
-  public register() {
+  public register():void {
     const val = this.registerForm.value;
-    console.log('val', val);
-    console.log('roleSelected', this.roleSelected);
-    this.requestService.register({
-      email: val.email,
-      password: val.password,
-      role: this.roleSelected
-    }).subscribe((data:any) => {
-      console.log('daa', data);
-      if (data.success) {
-        this.snackBar.open('Nouvel utilisateur ajouté', '', {
-          duration: 2000
-        })
-        this.router.navigate(['home'])
-      } else {
-        this.snackBar.open(`Erreur lors de l'ajout d'un nouvel utilisateur`, '', {
-          duration: 2000
-        })
-      }
-    })
-    // console.log('new User', newUser);
+    if (this.roleSelected) {
+      this.requestService.register({
+        email: val.email,
+        password: val.password,
+        role: this.roleSelected
+      }).subscribe((data:Success) => {
+        if (data.success) {
+          this.snackBar.open('Nouvel utilisateur ajouté', '', {
+            duration: 2000
+          })
+          this.router.navigate(['home'])
+        } else {
+          this.snackBar.open(`Erreur lors de l'ajout d'un nouvel utilisateur`, '', {
+            duration: 2000
+          })
+        }
+      })
+    }
   }
   
   

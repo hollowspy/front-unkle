@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  public onLogOut() {
+  public onLogOut():void {
     localStorage.clear();
     this.globalDataService.userConnected = null;
     this.router.navigate(['/']);

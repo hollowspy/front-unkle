@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
-import {RequestService} from '../../../providers/request.service'
+import {RequestService, Success} from '../../../providers/request.service'
 import {User} from "../../../models/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GlobalDataService} from "../../../providers/global-data.service";
+import {Observer} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -23,18 +24,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const idUser = this.route.snapshot.paramMap.get('id');
-    this.requestService.getUser(idUser).subscribe((data:any) => {
-      if (data) {
-        this.user = data;
-        console.log('user', this.user);
-      }
-    })
+    if (idUser) {
+      this.requestService.getUser(idUser).subscribe((user:User) => {
+        if (user) {
+          this.user = user;
+        }
+      })
+    }
   }
   
   
-  public deleteUser() {
-    if (this.user) {
-      this.requestService.deleteUser(this.user.id).subscribe((data:any) => {
+  public deleteUser():void {
+    if (this.user && this.user.id) {
+      this.requestService.deleteUser(this.user.id).subscribe((data:Success) => {
         if (data.success) {
           this.snackBar.open('Utilisateur supprimé', '', {
             duration: 2000
@@ -46,7 +48,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   
-  public onUpdateContract(e:boolean) {
+  public onUpdateContract(e:boolean):void {
     if (e) {
       this.displayContracts = false;
       const currentUrl = this.router.url;

@@ -4,14 +4,16 @@
         <ng-container *ngFor="let contract of contractUsers; let index=index">
             <mat-card class="card-contract" [ngClass]="{'resiliation': contract.date_resiliation}">
                 <mat-card-subtitle>
-                    <p>Type de contrat Unkle :</p>
+                    <p #displayDelete="valueVar"
+                       [appValueVar]="false"
+                    >Type de contrat Unkle :</p>
                     <ng-container *ngIf="!contract.date_resiliation">
                         <mat-icon id="icon-delete-contract-{{index}}"
                                   #hoverDelete="valueVar"
                                   (mouseover)="hoverDelete.appValueVar = true"
                                   (mouseout)="hoverDelete.appValueVar = false"
                                   [appValueVar]="false"
-                                  (click)="cancelContract(contract)" aria-hidden="false" aria-label="Example home icon">delete
+                                  (click)="displayDelete.appValueVar = true" aria-hidden="false" aria-label="Example home icon">delete
                         </mat-icon>
                         <app-custom-tooltip
                                 idTooltip="'tooltip-login-{{index}}"
@@ -19,12 +21,15 @@
                                 [width]="100"
                                 [minWidth]="50"
                                 [maxWidth]="400"
-                                [content]="'Supprimer le contrat définitivement'"
+                                [content]="'Supprimer le contrat ?'"
                                 [position]="'top'"
                                 [display]="hoverDelete.appValueVar">
                         </app-custom-tooltip>
                     </ng-container>
                 </mat-card-subtitle>
+                <ng-container  *ngIf="displayDelete.appValueVar">
+                    <app-confirm-delete-contract (onClose)="onCloseConfirmDelete($event, displayDelete)" [contract]="contract"></app-confirm-delete-contract>
+                </ng-container>
                 <mat-card-title>
                     <span class="contract-label">{{contract._contract.label}}</span>
                     <span class="info-date-resiliation" *ngIf="contract.date_resiliation">résilié</span>
@@ -35,7 +40,7 @@
                         <p>Date de souscription : {{contract.date_start |  date: 'dd/MM/yyyy'}}</p>
                         <p>Date d'expiration : {{contract.date_end |  date: 'dd/MM/yyyy'}}</p>
                         <p *ngIf="contract.date_resiliation">Date de resiliation : {{contract.date_resiliation |  date: 'dd/MM/yyyy'}}</p>
-                        <p>status du contrat : {{contract.status}}</p>
+                        <p>status du contrat : {{getStatus(contract.status)}}</p>
                     </div>
                     <div class="option-contract">
                         <p class="intro-option">Option(s) contractée(s) sur ce contrat</p>
@@ -58,5 +63,6 @@
         </p>
     </div>
     <p *ngIf="globalDataService?.userConnected?.role !== 'admin'">Vous souhaitez souscrire à un contrat ? Prenez contact sans attendre avec un administrateur Unkle!</p>
-
 </div>
+
+
