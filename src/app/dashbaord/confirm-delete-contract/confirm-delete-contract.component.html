@@ -1,0 +1,48 @@
+<div class="wrapper-delete-contract">
+    <mat-form-field appearance="fill">
+        <mat-label>Date de résiliation</mat-label>
+        <input matInput [(ngModel)]="dateResiliation" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-icon id="cancel-delete"
+              #cancelDeleteIcon="valueVar"
+              [appValueVar]="false"
+              (mouseover)="cancelDeleteIcon.appValueVar = true"
+              (mouseout)="cancelDeleteIcon.appValueVar = false"
+            (click)="cancelDelete()" aria-hidden="false" aria-label="Example home icon">clear
+    </mat-icon>
+    <app-custom-tooltip
+            [idTooltip]="'tooltip-cancel-delete'"
+            [idParent]="'cancel-delete'"
+            [width]="100"
+            [minWidth]="50"
+            [maxWidth]="400"
+            [content]="'Annuler la suppression'"
+            [position]="'bottom'"
+            [display]="cancelDeleteIcon.appValueVar">
+    </app-custom-tooltip>
+    <mat-icon id="confirm-delete"
+              #confirmDeleteIcon="valueVar"
+              [appValueVar]="false"
+              (mouseover)="confirmDeleteIcon.appValueVar = true"
+              (mouseout)="confirmDeleteIcon.appValueVar = false"
+              (click)="confirmDelete()" aria-hidden="false" aria-label="Example home icon">check
+    </mat-icon>
+    <app-custom-tooltip
+            [idTooltip]="'tooltip-confirm-delete'"
+            [idParent]="'confirm-delete'"
+            [width]="100"
+            [minWidth]="50"
+            [maxWidth]="400"
+            [content]="'Confirmation de la suppression'"
+            [position]="'right'"
+            [display]="confirmDeleteIcon.appValueVar">
+    </app-custom-tooltip>
+<!--    <button color="primary" mat-raised-button>Supprimer</button>-->
+</div>
+
+<ng-template #invalidDate>
+    <h1>Résiliation impossibe</h1>
+    <p>La date de résiliation doit être égale ou supérieure à la date d'aujourd'hui</p>
+</ng-template>

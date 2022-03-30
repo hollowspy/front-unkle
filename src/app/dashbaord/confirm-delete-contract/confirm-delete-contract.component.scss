@@ -1,0 +1,10 @@
+.wrapper-delete-contract {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  ::ng-deep {
+    mat-form-field {
+      width: 200px;
+    }
+  }
+}
