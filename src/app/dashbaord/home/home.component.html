@@ -11,7 +11,8 @@
         <button id="button-profile" #hoverBtnProfile="valueVar"
                 [appValueVar]="false"
                 (mouseover)="hoverBtnProfile.appValueVar = true;"
-                (mouseout)="hoverBtnProfile.appValueVar = false" (click)="viewProfile()" color="primary" mat-raised-button>Voir mon profil
+                (mouseout)="hoverBtnProfile.appValueVar = false"
+                (click)="hoverBtnProfile.appValueVar = false; viewProfile()" color="primary" mat-raised-button>Voir mon profil
         </button>
         <app-custom-tooltip
                 [idTooltip]="'tooltip-btn-profile'"

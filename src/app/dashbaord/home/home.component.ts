@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {RequestService} from "../../../providers/request.service";
 import {GlobalDataService} from "../../../providers/global-data.service";
 import {Router} from "@angular/router";
 import {forkJoin, Observable} from "rxjs";
 import {Contract} from "../../../models/contract";
 import {ContractOption} from "../../../models/contract_options";
+import {DOCUMENT} from "@angular/common";
 
 export interface TooltipContract {
   value: string;
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private requestService: RequestService,
               public globalDataService:GlobalDataService,
-              private router:Router) { }
+              private router:Router,
+              @Inject(DOCUMENT) public document: Document) { }
 
   ngOnInit(): void {
     const fetchContracts:Observable<Contract[]> = this.requestService.listContracts();
@@ -57,10 +59,13 @@ export class HomeComponent implements OnInit {
   
   
   
+  
+  
   public viewProfile():void {
-    if (this.globalDataService.userConnected) {
-      this.router.navigate(['/profile', `${this.globalDataService.userConnected.id}`])
-    }
+    setTimeout(() => {
+      if (this.globalDataService.userConnected) {
+        this.router.navigate(['/profile', `${this.globalDataService.userConnected.id}`])
+      }
+    }, 0)
   }
-
 }

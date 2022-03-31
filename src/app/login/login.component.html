@@ -1,6 +1,6 @@
 <div class="wrapper-form">
     <div class="form-login">
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <form [formGroup]="loginForm" (ngSubmit)="login(); hover.appValueVar = false">
             <p class="intro-form">Connexion au BackOffice Unkle</p>
             <div>
                 <mat-form-field id="email-field"
@@ -46,26 +46,6 @@
                         [position]="'bottom'"
                         [display]="hover.appValueVar">
                 </app-custom-tooltip>
-
-<!--                <div style="margin-top: 100px">-->
-<!--                    <p class="test" #test="valueVar"-->
-<!--                       [appValueVar]="true" -->
-<!--                       (mouseover)="test.appValueVar = true;"-->
-<!--                       (mouseout)="test.appValueVar = false"-->
-<!--                       id="id-test">Ceci est un nouveau test-->
-<!--                    </p>-->
-<!--                    <app-custom-tooltip-->
-<!--                            [idTooltip]="'tooltip-test'"-->
-<!--                            [idParent]="'id-test'"-->
-<!--                            [width]="100"-->
-<!--                            [minWidth]="50"-->
-<!--                            [maxWidth]="150"-->
-<!--                            [content]="'Ceci est mon nouveau contenu'"-->
-<!--                            [position]="'right'"-->
-<!--                            [display]="test.appValueVar"-->
-<!--                            *ngIf="test.appValueVar"></app-custom-tooltip>-->
-
-<!--                </div>-->
         </form>
     </div>
 </div>

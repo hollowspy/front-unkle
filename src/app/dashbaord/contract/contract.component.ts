@@ -1,6 +1,6 @@
 import {
     Component,
-    EventEmitter,
+    EventEmitter, HostListener,
     Input,
     Output,
     TemplateRef,
@@ -18,12 +18,20 @@ import {GlobalDataService} from "../../../providers/global-data.service";
 import {MatDialog} from '@angular/material/dialog';
 import {ContractOption} from "../../../models/contract_options";
 
+
+
 @Component({
     selector: 'app-contract',
     templateUrl: './contract.component.html',
     styleUrls: ['./contract.component.scss']
 })
 export class ContractComponent {
+    
+    @HostListener("click", ["$event"])
+    public onClick(event: any): void
+    {
+        event.stopPropagation();
+    }
     
     @Input() public user: User | undefined;
     @Output() public closeContract:EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -62,12 +70,11 @@ export class ContractComponent {
         if (this.contractSelected
             && this.user
             && this.optionsSelected
-            && this.dateStart
-            && this.dateEnd) {
+            && this.dateStart) {
             
             const startDate = moment(new Date(this.dateStart));
-            const endDate = moment(new Date(this.dateEnd));
-            if (moment(endDate).isBefore(startDate)) {
+            const endDate = (this.dateEnd) ? moment(new Date(this.dateEnd)) : null;
+            if (endDate &&  moment(endDate).isBefore(startDate)) {
                 if (this.invalidDate) {
                     return this.dialog.open(this.invalidDate, {
                         width: '400px'
@@ -83,7 +90,7 @@ export class ContractComponent {
                 id_user: this.user.id,
                 status,
                 date_start: this.dateStart,
-                date_end: this.dateEnd
+                date_end: (this.dateEnd) ? this.dateEnd : null
             };
             
             this.requestService.createContractUser(contractUser).subscribe((contract:ContractUser) => {

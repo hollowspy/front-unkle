@@ -12,12 +12,13 @@
                 <p>Role: {{user?.role}}</p>
             </div>
             <ng-container *ngIf="globalDataService?.userConnected?.role === 'admin'">
-                <button  (click)="deleteUser()"
+                <button
                         id="btn-delete-user"
                         #hoverDelete="valueVar"
                         [appValueVar]="false"
                         (mouseover)="hoverDelete.appValueVar = true"
                         (mouseout)="hoverDelete.appValueVar = false"
+                        (click)="hoverDelete.appValueVar = false; deleteUser()"
                         color="primary" mat-raised-button>Supprimer l'utilisateur
                 </button>
                 <app-custom-tooltip

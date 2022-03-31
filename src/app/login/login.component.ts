@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Login, RequestService} from "../../providers/request.service";
 import {Router} from "@angular/router";
@@ -10,6 +10,12 @@ import {GlobalDataService} from "../../providers/global-data.service";
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent  {
+    
+    @HostListener("click", ["$event"])
+    public onClick(event: any): void
+    {
+        event.stopPropagation();
+    }
     
     public loginForm: FormGroup
     

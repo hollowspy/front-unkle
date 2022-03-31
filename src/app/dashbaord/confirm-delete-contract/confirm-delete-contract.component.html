@@ -10,7 +10,7 @@
               [appValueVar]="false"
               (mouseover)="cancelDeleteIcon.appValueVar = true"
               (mouseout)="cancelDeleteIcon.appValueVar = false"
-            (click)="cancelDelete()" aria-hidden="false" aria-label="Example home icon">clear
+              (click)="cancelDeleteIcon.appValueVar = false; cancelDelete()" aria-hidden="false" aria-label="Example home icon">clear
     </mat-icon>
     <app-custom-tooltip
             [idTooltip]="'tooltip-cancel-delete'"
@@ -27,7 +27,7 @@
               [appValueVar]="false"
               (mouseover)="confirmDeleteIcon.appValueVar = true"
               (mouseout)="confirmDeleteIcon.appValueVar = false"
-              (click)="confirmDelete()" aria-hidden="false" aria-label="Example home icon">check
+              (click)="confirmDeleteIcon.appValueVar = false; confirmDelete()" aria-hidden="false" aria-label="Example home icon">check
     </mat-icon>
     <app-custom-tooltip
             [idTooltip]="'tooltip-confirm-delete'"

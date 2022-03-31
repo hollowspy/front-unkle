@@ -73,7 +73,7 @@
                     [appValueVar]="false"
                     (mouseover)="hoverContract.appValueVar = true"
                     (mouseout)="hoverContract.appValueVar = false"
-                    (click)="onValidContract()" color="primary" mat-raised-button>
+                    (click)="hoverContract.appValueVar = false; onValidContract()" color="primary" mat-raised-button>
                 Créer le contrat</button>
             <app-custom-tooltip
                     [idTooltip]="'tooltip-create-contract'"

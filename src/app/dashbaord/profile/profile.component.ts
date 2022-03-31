@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import {RequestService, Success} from '../../../providers/request.service'
 import {User} from "../../../models/user";
@@ -11,6 +11,12 @@ import {GlobalDataService} from "../../../providers/global-data.service";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  
+  @HostListener("click", ["$event"])
+  public onClick(event: any): void
+  {
+    event.stopPropagation();
+  }
   
   public user:User | null = null;
   public displayContracts:boolean = false;
